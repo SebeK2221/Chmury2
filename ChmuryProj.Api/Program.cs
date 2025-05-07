@@ -34,15 +34,19 @@ builder.Services.AddControllers()
 
 // Reszta konfiguracji...
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(opt =>
 {
-    options.AddPolicy("AllowBlazorClient",
-        policy => policy.WithOrigins("https://blue-glacier-070b1fd03.6.azurestaticapps.net")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+    opt.AddDefaultPolicy(pol =>
+    {
+        pol.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+    });
 });
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
